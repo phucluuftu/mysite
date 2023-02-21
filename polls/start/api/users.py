@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from common.utils import api_response_data
 from common.constants import *
 from services.users import user_manager
+from django.views.decorators.csrf import csrf_exempt
+from .schema import *
+from common.decorator import *
 
 @login_required
 @require_http_methods(["GET"])
@@ -16,8 +19,13 @@ def get(request):
            # "question": question_infos,
         }, SUCCESSFUL)
 
+@csrf_exempt
 @require_http_methods(["POST"])
-def create_question(request):
-    pass
+@parse_params(question_create_schema)
+def create_question(request, body):
+    return api_response_data({
+        "user": "user_infos",
+        # "question": question_infos,
+    }, SUCCESSFUL)
 
 

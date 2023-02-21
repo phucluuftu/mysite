@@ -1,6 +1,6 @@
 from jsonschema import validate
 
-question_schema = {
+question_create_schema = {
     "type": "object",
     "properties": {
         "question_text": {"type": "string"},
