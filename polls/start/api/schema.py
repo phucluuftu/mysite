@@ -1,5 +1,3 @@
-from jsonschema import validate
-
 question_create_schema = {
     "type": "object",
     "properties": {
