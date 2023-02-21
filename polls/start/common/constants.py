@@ -1,5 +1,5 @@
-import datetime
+from django.utils import timezone
 
-CURRENT_TIME = datetime.datetime.now()
+CURRENT_TIME = timezone.now()
 SUCCESSFUL = 'successful'
 FAIL = 'fail'

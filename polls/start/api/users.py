@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from common.utils import api_response_data
 from common.constants import *
 from services.users import user_manager
+from services.questions import question_manager
 from django.views.decorators.csrf import csrf_exempt
 from .schema import *
 from common.decorator import *
@@ -25,7 +26,17 @@ def get(request):
 @require_http_methods(["POST"])
 @parse_params(question_create_schema)
 def create_question(request, body):
-    return api_response_data({
-        "user": "user_infos",
-        # "question": question_infos,
-    }, SUCCESSFUL)
+    if request.user is None:
+        return api_response_data({
+        "error": "not loggin",
+        })
+    else:
+        user_name = request.user.get_username()
+        user = User.objects.get(username=user_name)
+        print(body)
+        print(user)
+        a = question_manager.create_question(body, user)
+        print(a)
+        return api_response_data({
+            "question": "create_question(body, user)",
+        }, SUCCESSFUL)
