@@ -23,20 +23,13 @@ def get(request):
 
 
 @csrf_exempt
+@login_required
 @require_http_methods(["POST"])
 @parse_params(question_create_schema)
 def create_question(request, body):
-    if request.user is None:
-        return api_response_data({
-        "error": "not loggin",
-        })
-    else:
-        user_name = request.user.get_username()
-        user = User.objects.get(username=user_name)
-        print(body)
-        print(user)
-        a = question_manager.create_question(body, user)
-        print(a)
-        return api_response_data({
-            "question": "create_question(body, user)",
-        }, SUCCESSFUL)
+    user_name = request.user.get_username()
+    user = User.objects.get(username=user_name)
+    question_created = question_manager.create_question(body, user)
+    return api_response_data({
+        "question_created": question_created,
+    }, SUCCESSFUL)

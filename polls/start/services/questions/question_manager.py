@@ -15,4 +15,4 @@ def create_question(body, user):
         type=body['type'],
         pass_code=random.randint(100000, 999999)
     )
-    return result
+    return result.as_json()
