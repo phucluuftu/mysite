@@ -47,6 +47,15 @@ def api_response_data(data, status=FAIL):
     return http.HttpResponse(to_json(data), content_type='application/json; charset=utf-8')
 
 
+def objects_to_json(objects):
+    """
+    Converts a Django QuerySet to a JSON string
+    """
+    objects_list = []
+    for object in objects:
+        object_json = object.as_json()
+        objects_list.append(object_json)
+    return objects_list
 
 
 

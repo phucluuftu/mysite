@@ -33,3 +33,17 @@ def create_question(request, body):
     return api_response_data({
         "question_created": question_created,
     }, SUCCESSFUL)
+
+
+@csrf_exempt
+@login_required
+@require_http_methods(["POST"])
+@parse_params(vote_schema)
+def vote(request, body):
+    question = question_manager.get_question_by_id(body['question_id'])
+    selected_choice = question_manager.get_choice_set_by_question_id(question, body['choice_id'])
+    vote_created_info = question_manager.create_vote_history(question, request.user, selected_choice.choice_text)
+    # info = json.loads(serialize('json', [newrecord]))
+    return api_response_data({
+        "vote_created_info": vote_created_info,
+    }, SUCCESSFUL)
