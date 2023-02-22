@@ -59,6 +59,12 @@ class UserInfo(BaseModel, models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     type = models.IntegerField('Type', default=1, choices=TYPES)
 
+    def check_type(self):
+        if self.type == 2:
+            return True
+        else:
+            return False
+
 
 class Question(BaseModel, models.Model):
     TYPES = (

@@ -18,6 +18,19 @@ question_create_schema = {
     "additionalProperties": False
 }
 
+question_update_schema = {
+    "type": "object",
+    "properties": {
+        "question_text": STRING,
+        "expire_date": STRING,
+        "status": BOOLEAN,
+        "type": NUMBER,
+        "choice": ARRAY
+    },
+    "required": [],
+    "additionalProperties": False
+}
+
 vote_schema = {
     "type": "object",
     "properties": {
